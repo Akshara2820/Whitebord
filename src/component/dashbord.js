@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Circle } from "react-konva";
 import Clock from "react-live-clock";
+import styled from "styled-components";
 import { CartContext } from "../context/context";
-import DrawingPage from "./drawcircle";
+import PaintBox from "./paintBox";
 
 function DashBoard() {
   const [clock, setClock] = useState(0);
   const { onLogout } = useContext(CartContext);
-  const [toggle, setToggle] = useState(false);
-  console.log(toggle, "kklkll");
 
   const [timeSec, setTimeSec] = useState(0);
   const timeDifference = (date1) => {
@@ -38,19 +38,19 @@ function DashBoard() {
   }, []);
 
   return (
-    <>
+    <Dahsbord1>
       <div className="flex justify-between items-center p-4">
-        {/* <div className="text-[20px] p-4">
+        <div className="text-[20px] p-4">
           <Clock
             format={"h:mm:ssa"}
             style={{ fontSize: "1.5em" }}
             ticking={true}
           />
-        </div> */}
+        </div>
         <div
           className={
             clock < "0:9"
-              ? "p-4  bg-red-400 rounded-full font-bold "
+              ? "p-4  bg-red-600 rounded-full font-bold "
               : "p-4 bg-slate-300 rounded-full font-bold "
           }
         >
@@ -59,10 +59,16 @@ function DashBoard() {
       </div>
       <div>
         <div>
-          <DrawingPage />
+          
+          <PaintBox/>
         </div>
       </div>
-    </>
+    </Dahsbord1>
   );
 }
 export default DashBoard;
+const Dahsbord1 = styled.div`
+  max-width: 1400px;
+  width: 95%;
+  margin: auto;
+`;

@@ -49,7 +49,6 @@ function SignUp() {
   const { minutes, setMinutes,onLogin } = useContext(CartContext);
 
   function SignUp_Details() {
-  
     const obj = {
       name: name,
       email: email,
@@ -58,7 +57,6 @@ function SignUp() {
       
     };
     let arr1 = [];
-
     if (email === "" && name === "" && password === "") {
       return;
     } else if (localStorage.getItem("userRegister")) {
@@ -68,14 +66,13 @@ function SignUp() {
     localStorage.setItem("userRegister", JSON.stringify(arr1));
     onLogin()
     return arr1;
-   
   }
 
   function Submit() {
     const tt = new Date().getTime() + 5 * 60 * 1000;
     setMinutes(tt);
     const obj = {
-      min: minutes,
+      min: minutes || tt,
     };
     localStorage.setItem("timer", JSON.stringify(obj));
   

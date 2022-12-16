@@ -12,7 +12,8 @@ import {
 } from "react-router-dom";
 import DashBoard from "./component/dashbord";
 import Login from "./component/login";
-import Layout from "./component";
+import PaintBox from "./component/paintBox";
+
 
 function App() {
   
@@ -21,7 +22,7 @@ const [active, setActive] = useState()
 
   useEffect(() => {
     const auth = localStorage.getItem("userRegister");
-    const user = !!auth ? JSON.parse(auth) : undefined;
+    const user = auth ? JSON.parse(auth) : undefined;
     setUser(user);
   }, []);
   return (
@@ -38,11 +39,11 @@ const [active, setActive] = useState()
    
    
       <Routes>
-        {user ? (
-          <Route path="/dashbord" element={<DashBoard />} />
-        ) : (
+        
+          <Route path="/dashbord" element={<DashBoard/>} />
+      
           <Route exact path="/login" element={<Login />} />
-        )}
+        
         <Route path="/" element={<SignUp />} />
         <Route exact path="/login" element={<Login />} />
       </Routes>
