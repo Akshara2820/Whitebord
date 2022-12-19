@@ -168,6 +168,7 @@ function SignUp() {
                 Login
               </p>
             </Link> */}
+            <Link to ='/login'><p className="font-semibold" style={{ color: "#2ad4bc" }} >Login </p></Link>
           </div>
         </div>
       </Contanier>

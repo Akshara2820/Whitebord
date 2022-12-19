@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FaFacebookF, FaLinkedinIn, FaGoogle, FaTwitter } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 import { CartContext } from "../context/context";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -12,7 +13,8 @@ function Login() {
   const [checkEmail, setCheckEmail] = useState("");
   const [load, setLoad] = useState(false);
   const obj = { email: email, password: password };
-  const { isLoggedin, setIsLoggedIn } = useContext(CartContext);
+
+  const { minutes, setMinutes, onLogin } = useContext(CartContext);
 
   function isValidEmail(email_) {
     setEmail(email_);
@@ -30,16 +32,29 @@ function Login() {
   };
 
   const handelSubmit = (e) => {
-    const tt = localStorage.getItem("userDetails")?.toString();
+    const tt = localStorage.getItem("userRegister")?.toString();
 
     let data = JSON.parse(tt);
-    console.log(data.email, "LLL");
-    if (email === "" && password === "") {
-      return;
-    } else if (data.email === email && data.password === password) {
-      
+    console.log(data,'opop');
+    {
+      data.map((i) => {
+        if (i.email === email && i.password === password) {
+          console.log('iii');
+          onLogin();
+          return;
+        } 
+      });
     }
   };
+
+  function Submit() {
+    const tt = new Date().getTime() + 5 * 60 * 1000;
+    setMinutes(tt);
+    const obj = {
+      min: minutes || tt,
+    };
+    localStorage.setItem("timer", JSON.stringify(obj));
+  }
 
   return (
     <div>
@@ -76,7 +91,13 @@ function Login() {
             Forgot your password ?
           </div>
           <div>
-            <button className="button" onClick={handelSubmit}>
+            <button
+              className="button"
+              onClick={() => {
+                handelSubmit();
+                Submit();
+              }}
+            >
               {" "}
               Login
             </button>
@@ -114,13 +135,14 @@ function Login() {
             </div>
           </div>
           <div className="flex justify-center gap-4 mt-6">
-            <p>Dont have account</p>
+            <p>Dont have account</p><Link to='/'><p className="font-semibold" style={{ color: "#2ad4bc" }}>
+                Sign-up
+              </p></Link>
             {/* <Link href={"/signup"}>
               <p className="font-semibold" style={{ color: "#2ad4bc" }}>
                 Sign-up
               </p>
             </Link> */}
-          
           </div>
         </div>
       </Contanier>

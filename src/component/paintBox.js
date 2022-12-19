@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import styled from 'styled-components';
 import { tool } from "./utils";
 import Konva, { Stage, Layer, Rect, Text, Line } from "react-konva";
 import Holder from "./Holder";
@@ -7,6 +8,7 @@ import { FaRedo, FaUndo } from "react-icons/fa";
 import { BiRectangle } from "react-icons/bi";
 import { MdClear } from "react-icons/md";
 import ColorPicker from "./colorPicker";
+
 function PaintBox() {
   const [elements, setElements] = useState([]);
   const [redo, setRedo] = useState([]);
@@ -17,6 +19,8 @@ function PaintBox() {
     JSON.parse(localStorage.getItem("whitebord")) || []
   );
   let isDraw = useRef(false);
+  var sceneWidth = 1000;
+  var sceneHeight = 1000;
 
   const onMouseDown = (e) => {
     isDraw.current = true;
@@ -103,10 +107,8 @@ function PaintBox() {
 
   const removeMe = () => {
     const rem = dataGetLocal.pop();
-    setRedo((s) => [...s, rem]);
-    setDataGetLocal(
-      dataGetLocal.filter((i, ind) => ind !== dataGetLocal.length - i)
-    );
+    setRedo((s) => [...s, rem] );
+    setDataGetLocal(dataGetLocal.filter((i, ind) => ind !== dataGetLocal.length - i));
   };
   const handleRedo = () => {
     if (redo.length > 0) {
@@ -119,9 +121,8 @@ function PaintBox() {
   };
 
   const shapeStore = [...elements, ...dataGetLocal];
-  console.log(shapeStore, "hhh");
   return (
-    <>
+    <PaintBox1>
       <div className="border w-full h-full">
         <Stage
           className="canvas-size"
@@ -140,7 +141,7 @@ function PaintBox() {
           </Layer>
         </Stage>
       </div>
-      <div className="flex justify-center items-center mx-auto mt-3">
+      <div className="flex justify-center  items-center mx-auto mt-3">
         <div className=" bg-gray-300 rounded-full shadow-lg p-2 px-4 flex gap-4 justify-between">
           <div
             onClick={() => setActiveType(tool.pen)}
@@ -242,7 +243,8 @@ function PaintBox() {
           </div>
         </div>
       </div>
-    </>
+    </PaintBox1>
   );
 }
 export default PaintBox;
+const PaintBox1 = styled.div``
